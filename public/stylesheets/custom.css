@@ -1,0 +1,21 @@
+a:hover {
+  text-decoration: none;
+}
+
+.fixed-vertical-center {
+  position: fixed;
+  width: 50vw;
+  margin: 12vw auto; /* Will not center vertically and won't work in IE6/7. */
+  left: 0;
+  right: 0;
+}
+
+#login img.logo {
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+#login #login-form-content {
+  padding: 5vw;
+}
