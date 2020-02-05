@@ -1,6 +1,6 @@
 {
-  "client_id": "",
-  "client_secret": "",
+  "client_id": ENV['GOOGLE_CLIENT_ID'],
+  "client_secret": ENV['GOOGLE_CLIENT_SECRET'],
   "scope": [
     "https://www.googleapis.com/auth/drive",
     "https://spreadsheets.google.com/feeds/"
