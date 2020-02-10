@@ -1,14 +1,15 @@
 %html
 %head
-  %title ADMIN
+  %title= ENV['PROJECT_TITLE']
 
-  %link{rel: "stylesheet", href: "stylesheets/bootstrap.min.css"}
-  %link{rel: "stylesheet", href: "stylesheets/darkly-bootstrap.min.css"}
-  %link{rel: 'stylesheet', href: 'stylesheets/custom.css'}
+  %link{rel: "stylesheet", type: 'text/css', href: "./stylesheets/bootstrap.min.css"}
+  %link{rel: "stylesheet", type: 'text/css', href: "./stylesheets/darkly-bootstrap.min.css"}
+  %link{rel: 'stylesheet', type: 'text/css', href: './stylesheets/custom.css'}
+  %link{rel: 'stylesheet', type: 'text/css', href: './stylesheets/proposals.css'}
 
 
 %body
-  - unless @hide_header
+  - if @show_header
     #header
       = display_partial "layouts/header"
   #content
@@ -16,4 +17,11 @@
       = display_partial 'layouts/alert' if messages.any?
       = yield
 
+%script{src: 'javascripts/jquery-3.4.1.min.js'}
 %script{src: 'javascripts/darkly-bootstrap.min.js'}
+%script{src: 'javascripts/main.js'}
+
+// conditional loading
+- if self.request.path == '/proposal'
+  %script{src: 'javascripts/proposals.js'}
+  %script{src: 'javascripts/jquery-validations-1.19.1.min.js'}

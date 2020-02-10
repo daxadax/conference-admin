@@ -1,0 +1,79 @@
+#proposal
+  .container.fixed-vertical-center
+    - if ENV.key?('LOGO_IMAGE_PATH')
+      .mx-auto.text-center
+        %img.logo{src: ENV['LOGO_IMAGE_PATH']}
+
+    #proposal-form-content.mt-5.text-center
+      %form.form-horizontal.mx-auto{action: 'proposal', method: 'post', role: 'form'}
+        .form-group{data: { position: 1 } }
+          %h2.mx-auto Personal information
+
+          // %input.form-control{type: 'text', required: true, name: 'name', placeholder: 'Name'}
+          // %input.form-control{type: 'email', required: true, name: 'email', placeholder: 'Email address'}
+          // %input.form-control{type: 'text', required: true, name: 'traveling_from', placeholder: 'Where would you be travelling from?'}
+          // %input.form-control{type: 'url', required: true, name: 'avatar_url', placeholder: 'Avatar URL'}
+
+          %button.btn.btn-block.btn-primary.btn-next{type: 'button'} Next section
+
+        .form-group.hidden{data: { position: 2 } }
+          %h2.mx-auto Your proposal
+
+          // %input.form-control{type: 'text', required: true, maxlength: 80, name: 'title', placeholder: 'Title'}
+          // %textarea.form-control{name: 'abstract', required: true, minlength: 200, maxlength: 500, placeholder: 'Abstract'}
+          // %select.form-control{required: true, name: 'type'}
+          //   %option{value: '', disabled: true, selected: true} Select an option
+          //   %option{value: 'lecture'} Lecture
+          //   %option{value: 'workshop'} Workshop
+          //   %option{value: 'ritual'} Ritual
+          //   %option{value: 'performance'} Performance
+          //   %option{value: 'film_screening'} Film Screening
+          //   %option{value: 'art'} Art
+          //   %option{value: 'other'} Other
+          // %input.form-control{type: 'text', required: true, name: 'tradition', placeholder: 'What tradition does your proposal come from?'}
+          // %textarea.form-control{type: 'text', name: 'special_requirements', placeholder: 'Any special requirements?'}
+
+          %button.btn.btn-block.btn-primary.btn-prev{type: 'button'} Previous section
+          %button.btn.btn-block.btn-primary.btn-next{type: 'button'} Next section
+
+        .form-group.hidden{data: { position: 3 } }
+          %h2.mx-auto CONDITIONAL SHIT HERE links/portfolio
+
+          %label How much experience do you have CONDITIONAL
+          %input#stage-experience-input.form-control{type: 'range', required: true, value: 0, name: 'public_speaking_experience', min: 0, max: 5, oninput: 'characterizeExperience(this.value)'}
+          %output#stage-experience-output
+          %input.form-control{type: 'text', name: 'previous_talks', placeholder: 'Add links to your previous talks'}
+
+          %button.btn.btn-block.btn-primary.btn-prev{type: 'button'} Previous section
+          %button.btn.btn-block.btn-primary.btn-next{type: 'button'} Next section
+
+        .form-group.hidden{data: { position: 4 } }
+          %h2.mx-auto Other interests
+
+          #other-interests
+            %input.form-control{type: 'checkbox', name: 'participate_in_panels'}
+              I am willing to participate in planel discussions
+            %br
+            %input.form-control{type: 'checkbox', name: 'participate_in_divination'}
+              I would like to give divination readings
+            %br
+            %input.form-control{type: 'checkbox', name: 'sell_merch'}
+              I would like to sell merchandise
+
+          %button.btn.btn-block.btn-primary.btn-prev{type: 'button'} Previous section
+          %button.btn.btn-block.btn-success{type: 'submit'} Submit Proposal
+
+// TODO: set to an env variable
+:javascript
+  function characterizeExperience(value) {
+    var experienceMap = {
+      0: 'noob',
+      1: 'weiner',
+      2: 'dog',
+      3: 'cat',
+      4: 'horse',
+      5: 'monkey'
+    }
+
+    $('output#stage-experience-output').html(experienceMap[value]);
+  }

@@ -10,11 +10,20 @@ class ConfAdminApp < Sinatra::Application
   end
 
   get '/' do
-    display_page 'dashboard'
+    redirect 'proposal'
   end
 
-  get '/login' do
-    display_page 'login', hide_header: true
+  get '/proposal' do
+    display_page 'proposal_form'
+  end
+
+  post '/proposal' do
+    p params
+    redirect '/proposal_submitted'
+  end
+
+  get '/proposal_submitted' do
+    display_page 'proposal_submitted'
   end
 
   ## ADMIN

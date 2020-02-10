@@ -1,0 +1,28 @@
+#proposal img.logo {
+  width: 50%;
+  margin: auto 10%;
+}
+
+#proposal #proposal-form-content form {
+  width: 60%;
+}
+
+#proposal #proposal-form-content .form-control {
+  margin: 0.5em auto;
+}
+
+#proposal #proposal-form-content label.error {
+  padding-bottom: 1em;
+}
+
+#proposal #proposal-form-content #other-interests {
+  text-align: left;
+  margin-left: 3vw;
+}
+
+#proposal #proposal-form-content input[type="checkbox"] {
+  width: 3vw;
+  margin-right: 0.25vw;
+  display: inline-block;
+  vertical-align: middle;
+}
