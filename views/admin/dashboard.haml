@@ -1,0 +1,7 @@
+.container
+  %h1= "Hi #{@current_user}"
+
+  - if proposals.all.count.zero?
+    %h3 No proposals received yet
+  - else
+    %h3= "#{proposals.all.count} received"

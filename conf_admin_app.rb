@@ -2,8 +2,11 @@ class ConfAdminApp < Sinatra::Application
   enable :sessions
 
   before do
-    authenticate!
-    set_current_user!
+    if request.path.match?(/^\/admin/)
+      logger.info "Authenticating request"
+      authenticate!
+      set_current_user!
+    end
   end
 
   get '/' do
@@ -14,12 +17,24 @@ class ConfAdminApp < Sinatra::Application
     display_page 'login', hide_header: true
   end
 
-  get '/logout' do
-    session['current_user'] = nil
-    redirect '/login'
+  ## ADMIN
+
+  get '/admin' do
+    display_admin_page 'dashboard',
+      show_header: true,
+      proposals: GoogleDrive::Proposals.new
   end
 
-  post '/login' do
+  get '/admin/login' do
+    display_admin_page 'login'
+  end
+
+  get '/admin/logout' do
+    session['current_user'] = nil
+    redirect 'admin/login'
+  end
+
+  post '/admin/login' do
     logger.info "Processing login for user #{params['username']}"
 
     user_key = ENV[params['username'].upcase]
@@ -27,10 +42,10 @@ class ConfAdminApp < Sinatra::Application
 
     if user_key == auth_key
       session['current_user'] = params['username']
-      redirect '/'
+      redirect '/admin'
     else
       messages << 'Login failed. Please contact administrator if you need help.'
-      redirect '/login'
+      redirect '/admin/login'
     end
   end
 
@@ -38,8 +53,8 @@ class ConfAdminApp < Sinatra::Application
 
   def authenticate!
     return if current_user?
-    return if request.path_info == '/login'
-    redirect '/login'
+    return if request.path_info == '/admin/login'
+    redirect '/admin/login'
   end
 
   def current_user?
@@ -60,14 +75,18 @@ class ConfAdminApp < Sinatra::Application
   end
 
   def display_page(location, locals = {})
-    @hide_header = locals.delete(:hide_header)
+    @show_header = locals.delete(:show_header)
     options = {
       layout_options: { views: 'views/layouts' },
-      layout: :default,
+      layout: locals.fetch(:layout) { :default },
       locals: locals
     }
 
     haml location.to_sym, options
+  end
+
+  def display_admin_page(location, locals = {})
+    display_page("admin/#{location}", locals.merge(layout: :admin))
   end
 
   def display_partial(location, locals = {})
