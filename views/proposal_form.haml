@@ -9,40 +9,47 @@
         .form-group{data: { position: 1 } }
           %h2.mx-auto Personal information
 
-          // %input.form-control{type: 'text', required: true, name: 'name', placeholder: 'Name'}
-          // %input.form-control{type: 'email', required: true, name: 'email', placeholder: 'Email address'}
-          // %input.form-control{type: 'text', required: true, name: 'traveling_from', placeholder: 'Where would you be travelling from?'}
-          // %input.form-control{type: 'url', required: true, name: 'avatar_url', placeholder: 'Avatar URL'}
+          %input.form-control{type: 'text', required: true, name: 'name', placeholder: 'Name'}
+          %input.form-control{type: 'email', required: true, name: 'email', placeholder: 'Email address'}
+          %input.form-control{type: 'text', required: true, name: 'traveling_from', placeholder: 'Where would you be travelling from?'}
+          %input.form-control{type: 'url', required: true, name: 'avatar_url', placeholder: 'Avatar URL (format: http://www.example.com/xyz.jpg)'}
 
           %button.btn.btn-block.btn-primary.btn-next{type: 'button'} Next section
 
         .form-group.hidden{data: { position: 2 } }
           %h2.mx-auto Your proposal
 
-          // %input.form-control{type: 'text', required: true, maxlength: 80, name: 'title', placeholder: 'Title'}
-          // %textarea.form-control{name: 'abstract', required: true, minlength: 200, maxlength: 500, placeholder: 'Abstract'}
-          // %select.form-control{required: true, name: 'type'}
-          //   %option{value: '', disabled: true, selected: true} Select an option
-          //   %option{value: 'lecture'} Lecture
-          //   %option{value: 'workshop'} Workshop
-          //   %option{value: 'ritual'} Ritual
-          //   %option{value: 'performance'} Performance
-          //   %option{value: 'film_screening'} Film Screening
-          //   %option{value: 'art'} Art
-          //   %option{value: 'other'} Other
-          // %input.form-control{type: 'text', required: true, name: 'tradition', placeholder: 'What tradition does your proposal come from?'}
-          // %textarea.form-control{type: 'text', name: 'special_requirements', placeholder: 'Any special requirements?'}
+          %input.form-control{type: 'text', required: true, maxlength: 80, name: 'title', placeholder: 'Title'}
+          %textarea.form-control{name: 'abstract', required: true, minlength: 200, maxlength: 500, placeholder: 'Abstract'}
+          %select.form-control{required: true, name: 'type', onchange: 'updateProposalType(this.value)'}
+            %option{value: '', disabled: true, selected: true} Select an option
+            %option{value: 'lecture'} Lecture
+            %option{value: 'workshop'} Workshop
+            %option{value: 'ritual'} Ritual
+            %option{value: 'performance'} Performance
+            %option{value: 'film_screening'} Film Screening
+            %option{value: 'art'} Art
+            %option{value: 'other'} Other
+          %input.form-control{type: 'text', name: 'tradition', placeholder: 'What tradition does your proposal come from?'}
+          %textarea.form-control{type: 'text', name: 'special_requirements', placeholder: 'Any special requirements?'}
 
           %button.btn.btn-block.btn-primary.btn-prev{type: 'button'} Previous section
           %button.btn.btn-block.btn-primary.btn-next{type: 'button'} Next section
 
         .form-group.hidden{data: { position: 3 } }
-          %h2.mx-auto CONDITIONAL SHIT HERE links/portfolio
+          %h2#conditional-information.mx-auto
 
-          %label How much experience do you have CONDITIONAL
-          %input#stage-experience-input.form-control{type: 'range', required: true, value: 0, name: 'public_speaking_experience', min: 0, max: 5, oninput: 'characterizeExperience(this.value)'}
-          %output#stage-experience-output
-          %input.form-control{type: 'text', name: 'previous_talks', placeholder: 'Add links to your previous talks'}
+          #previous-experience-wrapper
+            %label#previous-experience
+            %input#experience-input.form-control{type: 'range', required: true, value: 0, name: 'previous_experience', min: 1, max: 5, oninput: 'characterizeExperience(this.value)'}
+            %h4#experience-output
+
+          #portfolio-description.hidden
+            %label Please describe your work
+            %textarea.form-control{name: 'portfolio_description', required: true}
+
+          %label#portfolio
+          %textarea.form-control{type: 'text', name: 'portfolio'}
 
           %button.btn.btn-block.btn-primary.btn-prev{type: 'button'} Previous section
           %button.btn.btn-block.btn-primary.btn-next{type: 'button'} Next section
@@ -61,19 +68,62 @@
               I would like to sell merchandise
 
           %button.btn.btn-block.btn-primary.btn-prev{type: 'button'} Previous section
-          %button.btn.btn-block.btn-success{type: 'submit'} Submit Proposal
+          %button.btn.btn-block.btn-success{type: 'button', onclick: 'submitProposal()'}
+            Submit Proposal
 
-// TODO: set to an env variable
 :javascript
-  function characterizeExperience(value) {
-    var experienceMap = {
-      0: 'noob',
-      1: 'weiner',
-      2: 'dog',
-      3: 'cat',
-      4: 'horse',
-      5: 'monkey'
+  function updateProposalType(value) {
+    if ( $.inArray(value, ['lecture', 'workshop']) != -1 ) {
+      var headingText = 'Previous experience';
+          previousExperienceText = 'How experienced of a public speaker are you?';
+          portfoloText = 'Please link to any podcasts, conference videos or other media which demonstrates your presentation skills'
+
+      $('label#previous-experience').html(previousExperienceText);
+    } else if ( $.inArray(value, ['ritual', 'performance']) != -1 ) {
+      var headingText = 'Previous experience';
+          action = (value == 'ritual') ? 'conducting rituals' : 'putting on this performance'
+          previousExperienceText = 'How experienced are you in '+action+'?'
+          portfoloText = 'Please link to any media which can help us understand your work'
+
+      $('label#previous-experience').html(previousExperienceText);
+    } else if ( value == 'other' ) {
+      var headingText = 'More information'
+          portfoloText = 'Please link to any media which can help us understand your work'
+
+      $('#previous-experience-wrapper').addClass('hidden');
+      $('#portfolio-description').removeClass('hidden');
+    } else {
+      var headingText = 'Portfolio';
+          portfoloText = 'Please provide links to your portfolio'
+
+      $('#previous-experience-wrapper').addClass('hidden');
+      $('#portfolio-description').removeClass('hidden');
     }
 
-    $('output#stage-experience-output').html(experienceMap[value]);
+    $('#conditional-information').html(headingText);
+    $('label#portfolio').html(portfoloText);
+  }
+
+  // TODO: set to an env variable
+  function characterizeExperience(value) {
+    var experienceMap = {
+      1: "I've never done this before",
+      2: 'I have a bit of experience',
+      3: "I feel totally comfortable, but I'm not a pro",
+      4: 'I have a lot of experience',
+      5: 'I consider this my main occupation'
+    }
+
+    $('#experience-output').html(experienceMap[value]);
+  }
+
+  function submitProposal() {
+    var form = $('#proposal-form-content form')
+
+    form.validate();
+    $.post( "/proposal", form.serialize(), function() {
+      window.location = '/proposal_submitted'
+    });
+
+    return false;
   }

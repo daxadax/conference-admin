@@ -11,8 +11,17 @@
   margin: 0.5em auto;
 }
 
+#proposal #proposal-form-content textarea.form-control {
+  height: 12vh;
+}
+
 #proposal #proposal-form-content label.error {
   padding-bottom: 1em;
+}
+
+#proposal #proposal-form-content #experience-output {
+  padding: 0;
+  margin: 1em auto;
 }
 
 #proposal #proposal-form-content #other-interests {

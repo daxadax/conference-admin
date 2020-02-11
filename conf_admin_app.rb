@@ -18,8 +18,9 @@ class ConfAdminApp < Sinatra::Application
   end
 
   post '/proposal' do
+    logger.info "#{params['name']} submitted a proposal"
+    # TODO
     p params
-    redirect '/proposal_submitted'
   end
 
   get '/proposal_submitted' do
