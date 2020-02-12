@@ -3,6 +3,16 @@
   margin: auto 10%;
 }
 
+#proposal #proposal-form-content .intro-text {
+  font-size: 1.2em;
+  text-align: justify;
+  text-align-last: center;
+}
+
+#proposal #proposal-form-content .intro-text p {
+  margin: 1em auto;
+}
+
 #proposal #proposal-form-content form {
   width: 60%;
 }

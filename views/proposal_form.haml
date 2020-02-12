@@ -5,8 +5,21 @@
         %img.logo{src: ENV['LOGO_IMAGE_PATH']}
 
     #proposal-form-content.mt-5.text-center
+      .intro-text.form-stage{data: { position: 1 } }
+        %p Thanks so much for your interest in applying to participate at OCCULTURE 2020.
+
+        %p We invite practitioners, researchers, artists and all other interested parties from around the world to submit proposals for presentation at our 2020 edition in Berlin, Germany. Our program includes theoretical, practical and artistic components and we therefore encourage anyone interested to apply, regardless of your modality.
+
+        %p This is an opportunity to share research and build a network with an international group of magicians during one of the most interesting and unique occult gatherings in Europe - or anywhere else.
+
+        %p Proposals will be peer reviewed and acceptance will be based on content, available space, and overall program balance.
+
+        %p Please don't use your back button or the form will be reset!
+
+        %button.btn.btn-block.btn-primary.btn-next{type: 'button'} Begin application process
+
       %form.form-horizontal.mx-auto{action: 'proposal', method: 'post', role: 'form'}
-        .form-group{data: { position: 1 } }
+        .form-group.form-stage.hidden{data: { position: 2 } }
           %h2.mx-auto Personal information
 
           %input.form-control{type: 'text', required: true, name: 'name', placeholder: 'Name'}
@@ -14,10 +27,11 @@
           %input.form-control{type: 'text', required: true, name: 'traveling_from', placeholder: 'Where would you be travelling from?'}
           %input.form-control{type: 'url', required: true, name: 'avatar_url', placeholder: 'Avatar URL (format: http://www.example.com/xyz.jpg)'}
 
+          %button.btn.btn-block.btn-primary.btn-prev{type: 'button'} Previous section
           %button.btn.btn-block.btn-primary.btn-next{type: 'button'} Next section
 
-        .form-group.hidden{data: { position: 2 } }
-          %h2.mx-auto Your proposal
+        .form-group.form-stage.hidden{data: { position: 3 } }
+          %h2.mx-auto Proposal details
 
           %input.form-control{type: 'text', required: true, maxlength: 80, name: 'title', placeholder: 'Title'}
           %textarea.form-control{name: 'abstract', required: true, minlength: 200, maxlength: 500, placeholder: 'Abstract'}
@@ -36,7 +50,7 @@
           %button.btn.btn-block.btn-primary.btn-prev{type: 'button'} Previous section
           %button.btn.btn-block.btn-primary.btn-next{type: 'button'} Next section
 
-        .form-group.hidden{data: { position: 3 } }
+        .form-group.form-stage.hidden{data: { position: 4 } }
           %h2#conditional-information.mx-auto
 
           #previous-experience-wrapper
@@ -54,7 +68,7 @@
           %button.btn.btn-block.btn-primary.btn-prev{type: 'button'} Previous section
           %button.btn.btn-block.btn-primary.btn-next{type: 'button'} Next section
 
-        .form-group.hidden{data: { position: 4 } }
+        .form-group.form-stage.hidden{data: { position: 5 } }
           %h2.mx-auto Other interests
 
           #other-interests
