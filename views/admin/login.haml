@@ -1,7 +1,7 @@
 #login
   .container.fixed-vertical-center
     - if ENV.key?('LOGO_IMAGE_PATH')
-      .row.mx-auto
+      .mx-auto.text-center
         %img.logo{src: ENV['LOGO_IMAGE_PATH']}
 
     #login-form-content.mt-5.text-center
