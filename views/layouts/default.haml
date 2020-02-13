@@ -17,11 +17,11 @@
       = display_partial 'layouts/alert' if messages.any?
       = yield
 
-%script{src: 'javascripts/jquery-3.4.1.min.js'}
-%script{src: 'javascripts/darkly-bootstrap.min.js'}
-%script{src: 'javascripts/main.js'}
+%script{src: './javascripts/jquery-3.4.1.min.js'}
+%script{src: './javascripts/darkly-bootstrap.min.js'}
+%script{src: './javascripts/main.js'}
 
 // conditional loading
 - if self.request.path == '/proposal'
-  %script{src: 'javascripts/proposals.js'}
-  %script{src: 'javascripts/jquery-validations-1.19.1.min.js'}
+  %script{src: './javascripts/proposals.js'}
+  %script{src: './javascripts/jquery-validations-1.19.1.min.js'}
