@@ -1,6 +1,5 @@
 class ConfAdminApp < Sinatra::Application
   enable :sessions
-  disable :protection
 
   before do
     if request.path.match?(/^\/admin/)
