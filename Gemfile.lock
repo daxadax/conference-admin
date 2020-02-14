@@ -80,7 +80,6 @@ DEPENDENCIES
   google_drive
   haml
   minitest
-  rack-protection
   rack-test
   rake
   shotgun

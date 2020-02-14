@@ -12,6 +12,4 @@ require './conf_admin_app'
 require 'securerandom'
 set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) }
 
-require 'rack/protection'
-
 run ConfAdminApp
