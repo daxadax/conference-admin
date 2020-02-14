@@ -84,8 +84,8 @@ function submitProposal() {
 
   form.validate();
   $.post( "/proposal", form.serialize(), function() {
-    window.location = '/proposal_submitted'
-  });
+    window.location.replace('/proposal_submitted');
+  })
 
   return false;
 }

@@ -52,10 +52,10 @@ class ConfAdminApp < Sinatra::Application
 
     if user_key == auth_key
       session['current_user'] = params['username']
-      redirect '/admin'
+      redirect 'admin'
     else
       messages << 'Login failed. Please contact administrator if you need help.'
-      redirect '/admin/login'
+      redirect 'admin/login'
     end
   end
 
@@ -64,7 +64,7 @@ class ConfAdminApp < Sinatra::Application
   def authenticate!
     return if current_user?
     return if request.path_info == '/admin/login'
-    redirect '/admin/login'
+    redirect 'admin/login'
   end
 
   def current_user?
