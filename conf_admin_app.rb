@@ -1,5 +1,6 @@
 class ConfAdminApp < Sinatra::Application
   enable :sessions
+  use Rack::Protection, reaction: :drop_session
 
   before do
     if request.path.match?(/^\/admin/)
