@@ -83,10 +83,20 @@ function submitProposal() {
   var form = $('#proposal-form-content form')
 
   form.validate();
-  $.post( "/proposal", form.serialize(), function() {
-    window.location.replace('/proposal_submitted');
-  })
 
-  return false;
+  var request = $.ajax({
+    url: "/proposal",
+    method: "POST",
+    data: form.serialize(),
+    dataType: "html",
+    complete: function(xhr, textStatus) {
+      console.log(xhr.status);
+      if ( xhr.status == 201 ) {
+        window.location.replace('/proposal_submitted');
+      } else {
+        window.location.replace('/proposal');
+      }
+    }
+  });
 }
 

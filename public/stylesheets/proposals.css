@@ -45,3 +45,14 @@
   display: inline-block;
   vertical-align: middle;
 }
+
+#proposal-submitted img {
+  width: 60vw;
+  filter: saturate(0.5);
+}
+
+@media all and (min-width: 600px) {
+  #proposal-submitted img {
+    width: 40vw;
+  }
+}

@@ -18,9 +18,15 @@ class ConfAdminApp < Sinatra::Application
   end
 
   post '/proposal' do
-    logger.info "#{params['name']} submitted a proposal"
-    # TODO
-    p params
+    logger.info "#{params['name']} (#{params['email']}) submitted a proposal"
+    GoogleDrive::Commands::CreateProposal.call(params)
+    status = 201
+  rescue GoogleDrive::Error => e
+    logger.info "Failed to create proposal: #{e.message}"
+    status = 500
+    messages << 'Sorry, something went wrong. Please try again or contact us'
+  ensure
+    status
   end
 
   get '/proposal_submitted' do
