@@ -30,6 +30,16 @@ module GoogleDrive
       sheet.save
     end
 
+    def get_proposal(uuid)
+      proposals_sheet.list.detect { |row| row['uuid'] == uuid }
+    end
+
+    def update_proposal(uuid, params)
+      proposal = get_proposal(uuid)
+      proposal.update(params)
+      proposal.save
+    end
+
     def proposals_sheet
       print "[GOOGLE DRIVE] Fetching proposals...\n"
       session.spreadsheet_by_key(PROPOSALS_SHEET_ID).worksheets.first

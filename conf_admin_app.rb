@@ -10,11 +10,15 @@ class ConfAdminApp < Sinatra::Application
   end
 
   get '/' do
-    redirect 'proposal'
+    redirect 'proposal/new'
   end
 
-  get '/proposal' do
-    display_page 'proposal_form'
+  get '/proposal/new' do
+    display_page 'proposals/form'
+  end
+
+  get '/proposal/submitted' do
+    display_page 'proposals/submitted'
   end
 
   post '/proposal' do
@@ -29,8 +33,25 @@ class ConfAdminApp < Sinatra::Application
     status
   end
 
-  get '/proposal_submitted' do
-    display_page 'proposal_submitted'
+  get '/proposal/:uuid' do
+    result = GoogleDrive::Commands::GetProposal.call(uuid: params[:uuid])
+    # result = cached_proposals.all.detect { |row| row['uuid'] == params[:uuid] }
+
+    {
+      abstract: result['abstract'],
+      actions: result['actions'],
+      applied_at: result['applied_at'],
+      avatar_url: result['avatar_url'],
+      participate_in_divination: result['participate_in_divination'],
+      participate_in_panels: result['participate_in_panels'],
+      portfolio: result['portfolio'],
+      portfolio_description: result['portfolio_description'],
+      previous_talks: result['previous_talks'],
+      public_speaking_experience: result['public_speaking_experience'],
+      sell_merch: result['sell_merch'],
+      special_requirements: result['special_requirements'],
+      tradition: result['tradition']
+    }.to_json
   end
 
   ## ADMIN
@@ -38,7 +59,7 @@ class ConfAdminApp < Sinatra::Application
   get '/admin' do
     display_admin_page 'dashboard',
       show_header: true,
-      proposals: GoogleDrive::Proposals.new
+      proposals: GoogleDrive::Entities::Proposals.new
   end
 
   get '/admin/login' do

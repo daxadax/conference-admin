@@ -1,7 +1,50 @@
-.container
-  %h1= "Hi #{@current_user}"
-
+#dashboard.container
   - if proposals.all.count.zero?
     %h3 No proposals received yet
   - else
-    %h3= "#{proposals.all.count} received"
+    %h3= "#{proposals.all.count} proposals received"
+
+    #proposals
+      %nav.nav.nav-tabs.nav-fill
+        %a#all.nav-item.nav-link.active{href: '#'} All
+        - proposals.types.each do |type|
+          - id = type.split.map(&:downcase).join('_')
+          %a.nav-item.nav-link{href: '#', id: "#{id}"}= type
+      %table.table
+        %thead
+          %th{scope: 'col'} name
+          %th{scope: 'col'} title
+          %th{scope: 'col'} type
+          %th{scope: 'col'} location
+          %th{scope: 'col'} actions
+        %tbody
+          - proposals.all.each do |proposal|
+            %tr.primary{scope: 'row', data: {type: "#{proposal.type}", id: "#{proposal.uuid}"}}
+              %td= proposal.name
+              %td= proposal.title
+              %td= proposal.type
+              %td= proposal.location
+              %td.actions
+                // also as fas.fa-star if favorited
+                .action.far.fa-star{title: 'mark as favorite'}
+                .action.far.fa-question-circle{title: 'need more info'}
+                .action.far.fa-check-circle{title: 'accept proposal'}
+                .action.far.fa-times-circle{title: 'reject proposal'}
+                .action.far.fa-clock{title: 'mark as waiting'}
+            %tr.details-wrap.hidden{ data: { id: "#{proposal.uuid}"}}
+              %td.details{colspan: '5'}
+                .abstract-wrap
+                  %img.avatar{src: proposal.avatar_url}
+                  .abstract
+                    = proposal.abstract
+                    .additional-information
+                      - proposal.additional_information.each do |key, value|
+                        %div= "#{key.upcase}: #{value}"
+
+                .email= proposal.email
+                .speaking-experience{class: "text-#{proposal.experience_description_class}"}
+                  = proposal.experience_description
+
+                - proposal.checkboxes.each do |key, _|
+                  // TODO: translate checkbox keys
+                  .text-success= "Wants to #{key}"

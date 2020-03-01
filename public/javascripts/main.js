@@ -13,4 +13,10 @@ $(document).ready(function() {
       'event_label': 'click-'+name
     });
   });
+
+  // handle visual selection of nav-items
+  $('nav.nav .nav-item').on('click', function() {
+    $(this).parent().children().removeClass('active');
+    $(this).addClass('active');
+  });
 });

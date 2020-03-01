@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  console.log('here');
   // move to the next section
   $('#proposal-form-content .form-stage .btn-next').on('click', function(){
     var section = $(this).parent('.form-stage')

@@ -30,6 +30,7 @@ module GoogleDrive
 
       def call
         client.create_proposal(
+          uuid: SecureRandom.uuid,
           name: params['name'],
           email: params['email'],
           traveling_from: params['traveling_from'],

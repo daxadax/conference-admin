@@ -8,3 +8,58 @@
 #login #login-form-content {
   padding: 5vw;
 }
+
+/* DASHBOARD */
+
+#proposals nav .nav-item {
+  background: #464545; /* default */
+  border: 1px solid black;
+  padding: 1vh;
+  color: white;
+}
+
+#proposals nav .nav-item.active {
+  background: #375A7F; /* primary */
+}
+
+#proposals table {
+  color: white;
+}
+
+#proposals table thead {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#proposals table tbody tr {
+  border-bottom: 1px solid grey;
+}
+
+#proposals table .action {
+  cursor: pointer;
+}
+
+#proposals table tr.selected-row {
+ background: #375A7F;
+ border-bottom: none;
+}
+
+#proposals table .details-wrap .abstract-wrap {
+  display: inline-block;
+}
+
+#proposals table .details-wrap .abstract-wrap img.avatar {
+  max-width: 30%;
+  float: left;
+}
+
+#proposals table .details-wrap .abstract-wrap .abstract {
+  max-width: 65%;
+  float: left;
+  margin: auto 2%;
+  word-wrap: anywhere;
+}
+
+#proposals table .details-wrap .abstract-wrap .additional-information {
+  margin-top: 1em;
+}

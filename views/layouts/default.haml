@@ -2,10 +2,10 @@
 %head
   %title= ENV['PROJECT_TITLE']
 
-  %link{rel: "stylesheet", type: 'text/css', href: "./stylesheets/bootstrap.min.css"}
-  %link{rel: "stylesheet", type: 'text/css', href: "./stylesheets/darkly-bootstrap.min.css"}
-  %link{rel: 'stylesheet', type: 'text/css', href: './stylesheets/custom.css'}
-  %link{rel: 'stylesheet', type: 'text/css', href: './stylesheets/proposals.css'}
+  %link{rel: "stylesheet", type: 'text/css', href: url("stylesheets/bootstrap.min.css")}
+  %link{rel: "stylesheet", type: 'text/css', href: url("stylesheets/darkly-bootstrap.min.css")}
+  %link{rel: 'stylesheet', type: 'text/css', href: url('stylesheets/custom.css')}
+  %link{rel: 'stylesheet', type: 'text/css', href: url('stylesheets/proposals.css')}
 
 
 %body
@@ -17,11 +17,13 @@
       = display_partial 'layouts/alert' if messages.any?
       = yield
 
-%script{src: './javascripts/jquery-3.4.1.min.js'}
-%script{src: './javascripts/darkly-bootstrap.min.js'}
-%script{src: './javascripts/main.js'}
+%script{src: url('javascripts/jquery-3.4.1.min.js')}
+%script{src: url('javascripts/darkly-bootstrap.min.js')}
+%script{src: url('javascripts/main.js')}
 
 // conditional loading
-- if self.request.path == '/proposal'
-  %script{src: './javascripts/proposals.js'}
-  %script{src: './javascripts/jquery-validations-1.19.1.min.js'}
+- if self.request.path.include?('proposal')
+  - logger.info 'Loading auxiliary javascripts: proposals'
+  %script{src: url('javascripts/proposals.js')}
+  - logger.info 'Loading auxiliary javascripts: jquery-validations'
+  %script{src: url('javascripts/jquery-validations-1.19.1.min.js')}
