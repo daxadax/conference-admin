@@ -12,6 +12,7 @@ module GoogleDrive
       #   "traveling_from"=>"ber",
       #   "avatar_url"=>"https://www.google.com",
       #   "title"=>"My Title",
+      #   "bio"=>"i'm a good person",
       #   "abstract"=>"some text about the proposal",
       #   "type"=>"ritual",
       #   "tradition"=>"witchcraft",
@@ -22,6 +23,7 @@ module GoogleDrive
       #   "participate_in_panels"=>"on",
       #   "participate_in_divination"=>"on",
       #   "sell_merch"=>"on"
+      #   "vendor_electric"=>"on"
       # }
       def initialize(params)
         @client = GoogleDrive::Client.new
@@ -36,9 +38,10 @@ module GoogleDrive
           traveling_from: params['traveling_from'],
           type: params['type'],
           title: params['title'],
+          bio: params['bio'],
           abstract: params['abstract'],
           tradition: params['tradition'],
-          avatar_url: params['avatar_url'],
+          avatar_url: params.fetch('avatar_url') { 'http://www.tinyurl.com/vaquboq' },
           special_requirements: params['special_requirements'],
           public_speaking_experience: params['previous_experience'],
           previous_talks: params['previous_talks'],
@@ -47,6 +50,7 @@ module GoogleDrive
           participate_in_panels: params['participate_in_panels'],
           participate_in_divination: params['participate_in_divination'],
           sell_merch: params['sell_merch'],
+          vendor_electric: params['vendor_electric'],
           applied_at: Time.now.utc
         )
       end

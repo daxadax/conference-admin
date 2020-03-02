@@ -33,38 +33,57 @@ $(document).ready(function() {
 });
 
 function updateProposalType(value) {
-  $('.experience-variant').addClass('hidden');
+  // reset defaults
+  $('#proposal-form-content .experience-variant').addClass('hidden');
+  $('#proposal-form-content input[name=title]').attr('placeholder', 'Title')
+  $('#proposal-form-content textarea[name=abstract]').attr('placeholder', 'Abstract')
+  $('#proposal-form-content #other-interests .opt-in-merch').removeClass('hidden');
+  $('#proposal-form-content #other-interests .opt-in-electricity').addClass('hidden');
 
   if ( $.inArray(value, ['lecture', 'workshop']) != -1 ) {
     var headingText = 'Previous experience';
         previousExperienceText = 'How experienced of a public speaker are you?';
         portfoloText = 'Please link to any podcasts, conference videos or other media which demonstrates your presentation skills'
 
-    $('#previous-experience-wrapper').removeClass('hidden');
-    $('label#previous-experience').html(previousExperienceText);
+    $('#proposal-form-content #previous-experience-wrapper').removeClass('hidden');
+    $('#proposal-form-content label#previous-experience').html(previousExperienceText);
   } else if ( $.inArray(value, ['ritual', 'performance']) != -1 ) {
     var headingText = 'Previous experience';
         action = (value == 'ritual') ? 'conducting rituals' : 'putting on this performance'
         previousExperienceText = 'How experienced are you in '+action+'?'
         portfoloText = 'Please link to any media which can help us understand your work'
 
-    $('#previous-experience-wrapper').removeClass('hidden');
-    $('label#previous-experience').html(previousExperienceText);
+    $('#proposal-form-content #previous-experience-wrapper').removeClass('hidden');
+    $('#proposal-form-content label#previous-experience').html(previousExperienceText);
   } else if ( value == 'other' ) {
-    var headingText = 'More information'
+    var headingText = 'Additional details'
         portfoloText = 'Please link to any media which can help us understand your work'
 
-    $('#portfolio-description').removeClass('hidden');
+    $('#proposal-form-content #portfolio-description').removeClass('hidden');
+  } else if ( value == 'vendor' ) {
+    var headingText = 'Additional details'
+        portfoloText = 'Please link to your store page, Instagram, or other visual media'
+
+    // 'shop name' rather than 'title'
+    $('#proposal-form-content input[name=title]').attr('placeholder', 'Shop name')
+    $('#proposal-form-content textarea[name=abstract]').attr('placeholder', 'Shop description')
+    $('#proposal-form-content input[name=tradition]').addClass('hidden');
+
+    // don't show "i want to sell merch" to someone applying as a vendor
+    $('#proposal-form-content #other-interests .opt-in-merch').addClass('hidden');
+    $('#proposal-form-content #other-interests .opt-in-electricity').removeClass('hidden');
+
+    $('#proposal-form-content #portfolio-description').removeClass('hidden');
   } else {
     var headingText = 'Portfolio';
         portfoloText = 'Please provide links to your portfolio'
 
-    $('#previous-experience-wrapper').addClass('hidden');
-    $('#portfolio-description').removeClass('hidden');
+    $('#proposal-form-content #previous-experience-wrapper').addClass('hidden');
+    $('#proposal-form-content #portfolio-description').removeClass('hidden');
   }
 
-  $('#conditional-information').html(headingText);
-  $('label#portfolio').html(portfoloText);
+  $('#proposal-form-content #conditional-information').html(headingText);
+  $('#proposal-form-content label#portfolio').html(portfoloText);
 }
 
 // TODO: set to an env variable
@@ -77,7 +96,7 @@ function characterizeExperience(value) {
     5: 'I consider this my main occupation'
   }
 
-  $('#experience-output').html(experienceMap[value]);
+  $('#proposal-form-content #experience-output').html(experienceMap[value]);
 }
 
 function submitProposal() {

@@ -25,16 +25,15 @@
           %input.form-control{type: 'text', required: true, name: 'name', placeholder: 'Name'}
           %input.form-control{type: 'email', required: true, name: 'email', placeholder: 'Email address'}
           %input.form-control{type: 'text', required: true, name: 'traveling_from', placeholder: 'Where would you be travelling from?'}
+          %textarea.form-control{name: 'bio', required: true, maxlength: 300, placeholder: 'Short bio (max 300 characters)'}
           %input.form-control{type: 'url', name: 'avatar_url', placeholder: 'Avatar URL (format: http://www.example.com/xyz.jpg)'}
 
           %button.btn.btn-block.btn-primary.btn-prev{type: 'button'} Previous section
           %button.btn.btn-block.btn-primary.btn-next{type: 'button'} Next section
 
         .form-group.form-stage.hidden{data: { position: 3 } }
-          %h2.mx-auto Proposal details
+          %h2.mx-auto Proposal type
 
-          %input.form-control{type: 'text', required: true, maxlength: 80, name: 'title', placeholder: 'Title'}
-          %textarea.form-control{name: 'abstract', required: true, minlength: 200, maxlength: 600, placeholder: 'Abstract'}
           %select.form-control{required: true, name: 'type', onchange: 'updateProposalType(this.value)'}
             %option{value: '', disabled: true, selected: true} Select an option
             %option{value: 'lecture'} Lecture
@@ -43,14 +42,24 @@
             %option{value: 'performance'} Performance
             %option{value: 'film_screening'} Film Screening
             %option{value: 'art'} Art
+            %option{value: 'vendor'} Vendor
             %option{value: 'other'} Other
+
+          %button.btn.btn-block.btn-primary.btn-prev{type: 'button'} Previous section
+          %button.btn.btn-block.btn-primary.btn-next{type: 'button'} Next section
+
+        .form-group.form-stage.hidden{data: { position: 4 } }
+          %h2.mx-auto Proposal details
+
+          %input.form-control{type: 'text', required: true, maxlength: 80, name: 'title', placeholder: 'Title'}
+          %textarea.form-control{name: 'abstract', required: true, minlength: 200, maxlength: 600, placeholder: 'Abstract (max 600 characters)'}
           %input.form-control{type: 'text', name: 'tradition', placeholder: 'What tradition does your proposal come from?'}
           %textarea.form-control{type: 'text', name: 'special_requirements', placeholder: 'Any special requirements?'}
 
           %button.btn.btn-block.btn-primary.btn-prev{type: 'button'} Previous section
           %button.btn.btn-block.btn-primary.btn-next{type: 'button'} Next section
 
-        .form-group.form-stage.hidden{data: { position: 4 } }
+        .form-group.form-stage.hidden{data: { position: 5 } }
           %h2#conditional-information.mx-auto
 
           #previous-experience-wrapper.experience-variant
@@ -68,18 +77,25 @@
           %button.btn.btn-block.btn-primary.btn-prev{type: 'button'} Previous section
           %button.btn.btn-block.btn-primary.btn-next{type: 'button'} Next section
 
-        .form-group.form-stage.hidden{data: { position: 5 } }
-          %h2.mx-auto Other interests
+        .form-group.form-stage.hidden{data: { position: 6 } }
+          %h2.mx-auto Et cetera
 
           #other-interests
-            %input.form-control{type: 'checkbox', name: 'participate_in_panels'}
-              I am willing to participate in panel discussions
-            %br
-            %input.form-control{type: 'checkbox', name: 'participate_in_divination'}
-              I would like to give divination readings
-            %br
-            %input.form-control{type: 'checkbox', name: 'sell_merch'}
-              I would like to sell merchandise
+            .opt-in-panels
+              %input.form-control{type: 'checkbox', name: 'participate_in_panels'}
+                I am willing to participate in panel discussions
+              %br
+            .opt-in-divination
+              %input.form-control{type: 'checkbox', name: 'participate_in_divination'}
+                I would like to give divination readings
+              %br
+            .opt-in-merch
+              %input.form-control{type: 'checkbox', name: 'sell_merch'}
+                I would like to sell merchandise
+              %br
+            .opt-in-electricity.hidden
+              %input.form-control{type: 'checkbox', name: 'vendor_electric'}
+                I need electricity
 
           %button.btn.btn-block.btn-primary.btn-prev{type: 'button'} Previous section
           %button.btn.btn-block.btn-success{type: 'button', onclick: 'submitProposal()'}
