@@ -1,7 +1,10 @@
 $(document).ready(function() {
-  console.log('here');
+  var formNextButton = $('#proposal-form-content .form-stage .btn-next');
+      formPrevButton = $('#proposal-form-content .form-stage .btn-prev');
+      avatarInputField = $('#proposal #proposal-form-content input[name="avatar_url"]');
+
   // move to the next section
-  $('#proposal-form-content .form-stage .btn-next').on('click', function(){
+  formNextButton.on('click', function(){
     var section = $(this).parent('.form-stage')
         position = section.data('position')
 
@@ -17,7 +20,7 @@ $(document).ready(function() {
   });
 
   // move to the previous section
-  $('#proposal-form-content .form-stage .btn-prev').on('click', function(){
+  formPrevButton.on('click', function(){
     var section = $(this).parent('.form-stage').data('position');
     var prevSection = parseInt(section) - 1
 
@@ -25,9 +28,13 @@ $(document).ready(function() {
     $('.form-stage[data-position='+ prevSection +']').removeClass('hidden');
   });
 
+  // show avatar help on form input focus
+  avatarInputField.on('focus', function(){
+    $(this).parent().find('.form-text').removeClass('hidden');
+  });
+
   // trigger change event on range input
   $('input[type=range]').on('input', function () {
-    console.log(this)
     $(this).trigger('change');
   });
 });

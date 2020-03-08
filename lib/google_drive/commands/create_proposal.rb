@@ -8,6 +8,7 @@ module GoogleDrive
       # example params
       # {
       #   "name"=>"dax",
+      #   "birtday"=>'2020-01-01",
       #   "email"=>"d.dax@email.com",
       #   "traveling_from"=>"ber",
       #   "avatar_url"=>"https://www.google.com",
@@ -34,6 +35,7 @@ module GoogleDrive
         client.create_proposal(
           uuid: SecureRandom.uuid,
           name: params['name'],
+          birthday: params['birthday'],
           email: params['email'],
           traveling_from: params['traveling_from'],
           type: params['type'],

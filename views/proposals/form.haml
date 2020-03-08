@@ -23,10 +23,14 @@
           %h2.mx-auto Personal information
 
           %input.form-control{type: 'text', required: true, name: 'name', placeholder: 'Name'}
+          %input.form-control{type: 'date', required: true, name: 'birthday', placeholder: 'Date of Birth'}
           %input.form-control{type: 'email', required: true, name: 'email', placeholder: 'Email address'}
           %input.form-control{type: 'text', required: true, name: 'traveling_from', placeholder: 'Where would you be travelling from?'}
           %textarea.form-control{name: 'bio', required: true, maxlength: 300, placeholder: 'Short bio (max 300 characters)'}
-          %input.form-control{type: 'url', name: 'avatar_url', placeholder: 'Avatar URL (format: http://www.example.com/xyz.jpg)'}
+          %input.form-control{type: 'url', required: true, name: 'avatar_url', placeholder: 'Avatar URL (format: http://www.example.com/xyz.jpg)'}
+            .form-text.hidden
+              %a.btn.btn-block.btn-info{href: 'https://help.imgur.com/hc/en-us/articles/210076663-Uploading-Content', target: 'blank'}
+                Need help uploading an image?
 
           %button.btn.btn-block.btn-primary.btn-prev{type: 'button'} Previous section
           %button.btn.btn-block.btn-primary.btn-next{type: 'button'} Next section

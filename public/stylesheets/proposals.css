@@ -29,6 +29,10 @@
   padding-bottom: 1em;
 }
 
+#proposal #proposal-form-content .form-text {
+  margin: 1vh auto;
+}
+
 #proposal #proposal-form-content #experience-output {
   padding: 0;
   margin: 1em auto;
