@@ -1,6 +1,7 @@
 $(document).ready(function() {
   var formNextButton = $('#proposal-form-content .form-stage .btn-next');
       formPrevButton = $('#proposal-form-content .form-stage .btn-prev');
+      birthdayInputField = $('#proposal-form-content input[name="birthday"]');
       avatarInputField = $('#proposal #proposal-form-content input[name="avatar_url"]');
 
   // move to the next section
@@ -26,6 +27,11 @@ $(document).ready(function() {
 
     $('#proposal-form-content .form-stage').addClass('hidden');
     $('.form-stage[data-position='+ prevSection +']').removeClass('hidden');
+  });
+
+  // HACK: show placeholder for birthday field
+  birthdayInputField.on('focus', function() {
+    this.type = 'date';
   });
 
   // show avatar help on form input focus
