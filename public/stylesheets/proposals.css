@@ -51,12 +51,12 @@
 }
 
 #proposal-submitted img {
-  width: 60vw;
+  width: 60%;
   filter: saturate(0.5);
 }
 
 @media all and (min-width: 600px) {
   #proposal-submitted img {
-    width: 40vw;
+    width: 40%;
   }
 }
