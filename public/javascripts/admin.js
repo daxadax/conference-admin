@@ -50,3 +50,61 @@ $(document).ready(function() {
     // })
   });
 });
+
+function upvote(el) {
+  var proposalId = $(el).parents('tr').data('id');
+      dootCount = $(el).parent().siblings('.doot-count')[0]
+      doots = parseInt(dootCount.textContent)
+
+  if (el.classList.contains('upvoted')) {
+    $.ajax({
+      url: 'proposal/removeVote/' + proposalId,
+      type: 'patch',
+      data: {},
+      success: function(result) {
+        dootCount.textContent = doots - 1;
+        el.classList.remove('upvoted');
+      }
+    })
+  } else {
+    $.ajax({
+      url: 'proposal/upvote/' + proposalId,
+      type: 'patch',
+      data: {},
+      success: function(result) {
+        dootCount.textContent = doots + 1;
+        el.classList.remove('downvoted');
+        el.classList.add('upvoted');
+      }
+    })
+  }
+}
+
+function downvote(el) {
+  var proposalId = $(el).parents('tr').data('id');
+      dootCount = $(el).parent().siblings('.doot-count')[0]
+      doots = parseInt(dootCount.textContent)
+
+  if (el.classList.contains('downvoted')) {
+    $.ajax({
+      url: 'proposal/removeVote/' + proposalId,
+      type: 'patch',
+      data: {},
+      success: function(result) {
+        dootCount.textContent = doots + 1;
+        el.classList.remove('downvoted');
+      }
+    })
+  } else {
+    $.ajax({
+      url: 'proposal/downvote/' + proposalId,
+      type: 'patch',
+      data: {},
+      success: function(result) {
+        dootCount.textContent = doots - 1;
+        el.classList.remove('upvoted');
+        el.classList.add('downvoted');
+      }
+    })
+  }
+}

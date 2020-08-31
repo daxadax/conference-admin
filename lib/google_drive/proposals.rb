@@ -13,6 +13,12 @@ module GoogleDrive
         @all ||= data.rows[1..-1].map { |row| Proposal.new(Hash[attributes.zip(row)]) }
       end
 
+      def sorted_by_votes
+        all.sort_by do |proposal|
+          proposal.doots.values.sum
+        end.reverse
+      end
+
       def types
         all.map { |proposal| proposal.type.split('_').map(&:capitalize).join(' ') }.uniq
       end
@@ -22,7 +28,7 @@ module GoogleDrive
 
       class Proposal
         NAMED_ATTRIBUTES = %w[
-          name title type traveling_from uuid avatar_url actions public_speaking_experience portfolio_description abstract email
+          name title type traveling_from uuid avatar_url doots public_speaking_experience portfolio_description abstract email
         ]
 
         def initialize(row)
@@ -61,8 +67,8 @@ module GoogleDrive
           row['email']
         end
 
-        def actions_history
-          row['actions']
+        def doots
+          row['doots'].empty? ? {} : JSON.parse(row['doots'])
         end
 
         def experience_description

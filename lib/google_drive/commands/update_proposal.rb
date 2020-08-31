@@ -21,7 +21,8 @@ module GoogleDrive
       #   "portfolio"=>"youtube.com/something",
       #   "participate_in_panels"=>"on",
       #   "participate_in_divination"=>"on",
-      #   "sell_merch"=>"on"
+      #   "sell_merch"=>"on",
+      #   "doots"=>"{\"dax\":1,\"giorgia\":-1}"
       # }
       def initialize(uuid, params)
         @client = GoogleDrive::Client.new

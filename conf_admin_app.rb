@@ -39,7 +39,7 @@ class ConfAdminApp < Sinatra::Application
 
     {
       abstract: result['abstract'],
-      actions: result['actions'],
+      doots: result['doots'],
       applied_at: result['applied_at'],
       avatar_url: result['avatar_url'],
       participate_in_divination: result['participate_in_divination'],
@@ -52,6 +52,58 @@ class ConfAdminApp < Sinatra::Application
       special_requirements: result['special_requirements'],
       tradition: result['tradition']
     }.to_json
+  end
+
+  patch '/proposal/upvote/:uuid' do
+    return status 401 if session['current_user'].nil?
+
+    existing = GoogleDrive::Commands::GetProposal.call(uuid: params[:uuid])
+    existing['doots'] = '{}' if existing['doots'].empty?
+    updated_doots = JSON.parse(existing['doots']).merge({session['current_user'] => 1})
+
+    GoogleDrive::Commands::UpdateProposal.call(
+      uuid: params[:uuid],
+      params: {
+        doots: updated_doots.to_json
+      }
+    )
+
+    status 200
+  end
+
+  patch '/proposal/downvote/:uuid' do
+    return status 401 if session['current_user'].nil?
+
+    existing = GoogleDrive::Commands::GetProposal.call(uuid: params[:uuid])
+    existing['doots'] = '{}' if existing['doots'].empty?
+    updated_doots = JSON.parse(existing['doots']).merge({session['current_user'] => -1})
+
+    GoogleDrive::Commands::UpdateProposal.call(
+      uuid: params[:uuid],
+      params: {
+        doots: updated_doots.to_json
+      }
+    )
+
+    status 200
+  end
+
+  patch '/proposal/removeVote/:uuid' do
+    return status 401 if session['current_user'].nil?
+
+    existing = GoogleDrive::Commands::GetProposal.call(uuid: params[:uuid])
+    return status 400 if existing['doots'].empty?
+
+    updated_doots = JSON.parse(existing['doots']).merge({session['current_user'] => 0})
+
+    GoogleDrive::Commands::UpdateProposal.call(
+      uuid: params[:uuid],
+      params: {
+        doots: updated_doots.to_json
+      }
+    )
+
+    status 200
   end
 
   ## ADMIN

@@ -35,9 +35,10 @@ module GoogleDrive
     end
 
     def update_proposal(uuid, params)
-      proposal = get_proposal(uuid)
+      sheet = proposals_sheet
+      proposal = sheet.list.detect { |row| row['uuid'] == uuid }
       proposal.update(params)
-      proposal.save
+      sheet.save
     end
 
     def proposals_sheet

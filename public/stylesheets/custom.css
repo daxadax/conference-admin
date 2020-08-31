@@ -1,5 +1,7 @@
 html, body {
   overflow: visible;
+  background: #222;
+  color: white;
 }
 
 a:hover {

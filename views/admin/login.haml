@@ -10,14 +10,14 @@
         .row
           %a.text-center.mx-auto.col-8.mt-3{href: '/'}
             %button.btn.btn-block.btn-default Home
-          %a.text-center.mx-auto.col-8.mt-3{href: '/logout'}
+          %a.text-center.mx-auto.col-8.mt-3{href: '/admin/logout'}
             %button.btn.btn-block.btn-danger Log Out
       - else
         %form.form-horizontal.mx-auto{action: 'login', method: 'post', role: 'form'}
           %legend.mx-auto Log in to access your account
-          .form-group
+          .form-group.py-1
             %input.form-control{type: 'text', name: 'username', placeholder: 'username'}
-          .form-group
+          .form-group.py-1
             %input.form-control{type: 'password', name: 'password', placeholder: 'password'}
           .form-group
             %button.btn.btn-block.btn-primary{type: 'submit'} Log In

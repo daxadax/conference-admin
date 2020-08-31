@@ -1,3 +1,7 @@
+body {
+  color: white;
+}
+
 /* LOGIN */
 
 #login img.logo {
@@ -35,8 +39,20 @@
   border-bottom: 1px solid grey;
 }
 
+#proposals table tbody tr td {
+  vertical-align: middle;
+}
+
 #proposals table .action {
   cursor: pointer;
+}
+
+#proposals table .doots .upvoted {
+  color: orange;
+}
+
+#proposals table .doots .downvoted {
+  color: cornflowerblue;
 }
 
 #proposals table tr.selected-row {

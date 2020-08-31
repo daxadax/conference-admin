@@ -12,25 +12,24 @@
           %a.nav-item.nav-link{href: '#', id: "#{id}"}= type
       %table.table
         %thead
+          %th{scope: 'col'} actions
           %th{scope: 'col'} name
           %th{scope: 'col'} title
           %th{scope: 'col'} type
           %th{scope: 'col'} location
-          %th{scope: 'col'} actions
         %tbody
-          - proposals.all.each do |proposal|
+          - proposals.sorted_by_votes.each do |proposal|
             %tr.primary{scope: 'row', data: {type: "#{proposal.type}", id: "#{proposal.uuid}"}}
+              %td.actions
+                .row
+                  .col-3.doots
+                    .action.upvote.far.fa-arrow-alt-circle-up.p-1{onclick: "upvote(this)", title: 'I like it!', class: proposal.doots[@current_user] == 1 ? 'upvoted' : ''}
+                    .action.downvote.far.fa-arrow-alt-circle-down.p-1{onclick: "downvote(this)", title: 'meh..', class: proposal.doots[@current_user] == -1 ? 'downvoted' : ''}
+                  .col-9.doot-count.align-self-center= proposal.doots.values.sum
               %td= proposal.name
               %td= proposal.title
               %td= proposal.type
               %td= proposal.location
-              %td.actions
-                // also as fas.fa-star if favorited
-                .action.far.fa-star{title: 'mark as favorite'}
-                .action.far.fa-question-circle{title: 'need more info'}
-                .action.far.fa-check-circle{title: 'accept proposal'}
-                .action.far.fa-times-circle{title: 'reject proposal'}
-                .action.far.fa-clock{title: 'mark as waiting'}
             %tr.details-wrap.hidden{ data: { id: "#{proposal.uuid}"}}
               %td.details{colspan: '5'}
                 .abstract-wrap
