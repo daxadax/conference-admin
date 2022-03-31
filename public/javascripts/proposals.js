@@ -123,7 +123,6 @@ function submitProposal() {
     data: form.serialize(),
     dataType: "html",
     complete: function(xhr, textStatus) {
-      console.log(xhr.status);
       if ( xhr.status == 201 ) {
         window.location.replace('/proposal/submitted');
       } else {
