@@ -8,7 +8,7 @@ module GoogleDrive
       # example params
       # {
       #   "name"=>"dax",
-      #   "birtday"=>'2020-01-01",
+      #   "birthday"=>'2020-01-01",
       #   "email"=>"d.dax@email.com",
       #   "traveling_from"=>"ber",
       #   "avatar_url"=>"https://www.google.com",
